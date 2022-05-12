@@ -26,6 +26,10 @@ class UnlockCommentAchievement
      */
     public function handle(CommentWritten $event)
     {
-        //
+        //get user $user_id = $event->Comment_user_id;
+        //check comment number
+        //check_qualified achievement
+        //check_if_already_has_achievement
+        //assignAchievement
     }
 }

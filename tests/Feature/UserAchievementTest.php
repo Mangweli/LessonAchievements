@@ -6,14 +6,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class test_user_gains_achievement_with_new_comment extends TestCase
+class UserAchievementTest extends TestCase
 {
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_example()
+    public function test_get_user_achievement_status()
     {
         $response = $this->get('/');
 
