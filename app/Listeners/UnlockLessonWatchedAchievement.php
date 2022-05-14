@@ -3,19 +3,22 @@
 namespace App\Listeners;
 
 use App\Events\LessonWatched;
+use App\Interfaces\LessonRepositoryInterface;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
 class UnlockLessonWatchedAchievement
 {
+    private LessonRepositoryInterface $lessonRepository;
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(LessonRepositoryInterface $lessonRepository)
     {
-        //
+        $this->lessonRepository = $lessonRepository;
     }
 
     /**
@@ -26,11 +29,28 @@ class UnlockLessonWatchedAchievement
      */
     public function handle(LessonWatched $event)
     {
-        //get user
-        //Get lesson watched
-        //check Lesson number
-        //check_qualified achievement
-        //check_if_already_has_achievement
-        //assignAchievement
+        try {
+            $lesson = $event->lesson;
+            $user   = $event->user;
+            $this->lessonRepository->setLessonWatchStatus($user->id, $lesson->id, true);
+
+            $LessonNumber = $this->lessonRepository->getUserLessonNumber($user->id);
+            $qualifiedAchievement = $this->lessonRepository->getLessonAchievement($LessonNumber);
+            $qualifiedAchievement = empty($qualifiedAchievement) ? [] : $qualifiedAchievement;
+
+            if(!empty($qualifiedAchievement)) {
+                $achievementReceivedCheck = $this->commentRepository->userHasAchievement($user_id, $qualifiedAchievement->id);
+
+                if($achievementReceivedCheck === 0) {
+                    $setAchievement = $this->lessonRepository->setUserLessonAchievement($user_id, $event->Comment->id, $qualifiedAchievement->id);
+                    if(!empty($setAchievement)) {
+                        //achievement unlock event
+                    }
+                }
+            }
+        }
+        catch (\Throwable $th) {
+            Log::error($th);
+        }
     }
 }

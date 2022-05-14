@@ -11,7 +11,6 @@ class CommentWritten
     use Dispatchable, SerializesModels;
 
     public $comment;
-    public $user;
 
     /**
      * Create a new event instance.

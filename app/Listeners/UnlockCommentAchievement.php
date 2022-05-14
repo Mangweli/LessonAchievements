@@ -30,14 +30,19 @@ class UnlockCommentAchievement
     public function handle(CommentWritten $event)
     {
         try {
-            $user_id              = $event->Comment_user_id;
-            $qualifiedAchievement = empty($this->commentRepository->getCommentAchievement($user_id)) ? [] : $this->commentRepository->getUserCommentNumber($user_id);
+            $user_id              = $event->Comment->user_id;
+            $commentNumber        = $this->commentRepository->getUserCommentNumber($user_id);
+            $qualifiedAchievement = $this->commentRepository->getCommentAchievement($commentNumber);
+            $qualifiedAchievement = empty($qualifiedAchievement) ? [] : $qualifiedAchievement;
 
             if(!empty($qualifiedAchievement)) {
                 $achievementReceivedCheck = $this->commentRepository->userHasAchievement($user_id, $qualifiedAchievement->id);
 
                 if($achievementReceivedCheck === 0) {
-                    $this->commentRepository->setUserCommentAchievement($user_id, $comment_id, $achievement_id);
+                    $setAchievement = $this->commentRepository->setUserCommentAchievement($user_id, $event->Comment->id, $qualifiedAchievement->id);
+                    if(!empty($setAchievement)) {
+                         //achievement unlock event
+                    }
                 }
             }
         }
