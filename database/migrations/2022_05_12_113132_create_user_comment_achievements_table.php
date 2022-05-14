@@ -17,6 +17,7 @@ class CreateUserCommentAchievementsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('comment_written_achievement_id')->constrained();
+            $table->foreignId('comment_id')->constrained();
             $table->timestamps();
         });
     }
