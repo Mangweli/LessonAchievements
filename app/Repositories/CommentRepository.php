@@ -7,24 +7,29 @@ use App\Models\UserCommentAchievement;
 
 class CommentRepository implements CommentRepositoryInterface
 {
-    public function getUserComments($user_id, $pagination = 10)
-    {
-        return Comment::where('user_id')->paginate($pagination);
-    }
+    // public function getUserComments($user_id, $pagination = 10)
+    // {
+    //     return Comment::where('user_id')->paginate($pagination);
+    // }
 
-    public function getUserCommentCurrentAchievement($user_id)
-    {
-        return UserCommentAchievement::where("user_id", $user_id)->last();
-    }
+    // public function getUserCommentCurrentAchievement($user_id)
+    // {
+    //     return UserCommentAchievement::where("user_id", $user_id)->last();
+    // }
 
-    public function getUserNextCommentAchievement($user_id)
+    // public function getUserNextCommentAchievement($user_id)
+    // {
+    //     return CommentWrittenAchievement::where("id", ">", UserCommentAchievement::where("user_id", $user_id)
+    //                                                                              ->take(1)
+    //                                                                              ->orderBy("created_at","desc")
+    //                                                                              ->pluck("comment_written_achievement_id")[0]
+    //                                     )
+    //                                     ->first();
+    // }
+
+    public function getUserCommentNumber($user_id)
     {
-        return CommentWrittenAchievement::where("id", ">", UserCommentAchievement::where("user_id", $user_id)
-                                                                                 ->take(1)
-                                                                                 ->orderBy("created_at","desc")
-                                                                                 ->pluck("comment_written_achievement_id")[0]
-                                        )
-                                        ->first();
+        return Comment::where("user_id", $user_id)->count();
     }
 
     public function getCommentAchievement($commentNumber)
@@ -32,9 +37,8 @@ class CommentRepository implements CommentRepositoryInterface
        return CommentWrittenAchievement::where("number_of_comments", $commentNumber)->first();
     }
 
-    public function getUserCommentNumber($user_id)
-    {
-        return Comment::where("user_id", $user_id)->count();
+    public function getCommentAchievementReceived(int $user_id) {
+        return UserCommentAchievement::where("user_id", $user_id)->count();
     }
 
     public function userHasAchievement($user_id, $achievement_id)

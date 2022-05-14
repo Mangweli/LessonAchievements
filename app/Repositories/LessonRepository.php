@@ -12,9 +12,13 @@ class LessonRepository implements LessonRepositoryInterface
         return LessonUser::where("user_id", $user_id)->distinct("lesson_id")->count();
     }
 
-    public function getLessonAchievement($LessonNumber)
+    public function getLessonAchievement($lessonNumber)
     {
-       return LessonWatchedAchievement::where("number_of_lessons", $LessonNumber)->first();
+       return LessonWatchedAchievement::where("number_of_lessons", $lessonNumber)->first();
+    }
+
+    public function getLessonAchievementReceived(int $user_id) {
+        return UserLessonWatchedAchievement::where("user_id", $user_id)->count();
     }
 
     public function userHasAchievement($user_id, $achievement_id)
