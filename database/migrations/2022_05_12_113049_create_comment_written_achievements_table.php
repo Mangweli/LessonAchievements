@@ -19,6 +19,15 @@ class CreateCommentWrittenAchievementsTable extends Migration
             $table->integer('number_of_comments');
             $table->timestamps();
         });
+
+        DB::Table('comment_written_achievements')
+            ->insert([
+                        ['name' => 'First Comment Written', 'number_of_comments' => 1],
+                        ['name' => '3 Comments Written', 'number_of_comments' => 3],
+                        ['name' => '5 Comments Written', 'number_of_comments' => 5],
+                        ['name' => '10 Comment Written', 'number_of_comments' => 10],
+                        ['name' => '20 Comment Written', 'number_of_comments' => 20]
+                    ]);
     }
 
     /**

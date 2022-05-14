@@ -16,7 +16,7 @@ class CreateUserLessonWatchedAchievementsTable extends Migration
         Schema::create('user_lesson_watched_achievements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('lesson_watched_achievement_id')->constrained();
+            $table->foreignId('lesson_achievement_id')->constrained('lesson_watched_achievements');
             $table->timestamps();
         });
     }

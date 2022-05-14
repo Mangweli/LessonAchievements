@@ -19,6 +19,15 @@ class CreateLessonWatchedAchievementsTable extends Migration
             $table->string('number_of_lessons');
             $table->timestamps();
         });
+
+        DB::Table('lesson_watched_achievements')
+            ->insert([
+                        ['name' => 'First Lesson Watched', 'number_of_lessons' => 1],
+                        ['name' => '5 Lessons Watched', 'number_of_lessons' => 5],
+                        ['name' => '10 Lessons Watched', 'number_of_lessons' => 10],
+                        ['name' => '25 Lessons Watched', 'number_of_lessons' => 25],
+                        ['name' => '50 Lessons Watched', 'number_of_lessons' => 50]
+                    ]);
     }
 
     /**

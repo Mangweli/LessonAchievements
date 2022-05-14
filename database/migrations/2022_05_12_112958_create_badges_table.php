@@ -16,9 +16,17 @@ class CreateBadgesTable extends Migration
         Schema::create('badges', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->interger('number_of_achievements');
+            $table->integer('number_of_achievements');
             $table->timestamps();
         });
+
+        DB::Table('badges')
+            ->insert([
+                        ['name' => 'Beginner', 'number_of_achievements' => 0],
+                        ['name' => 'Intermediate', 'number_of_achievements' => 4],
+                        ['name' => 'Advanced', 'number_of_achievements' => 8],
+                        ['name' => 'Master', 'number_of_achievements' => 10],
+                    ]);
     }
 
     /**
