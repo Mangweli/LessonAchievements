@@ -26,8 +26,15 @@ class UnlockCommentAchievement
      */
     public function handle(CommentWritten $event)
     {
-        //get user $user_id = $event->Comment_user_id;
-        //check comment number
+        $user_id       = $event->Comment_user_id;
+        // $commentNumber = DB::Table("Comments")
+        //                     ->where("User_id", $user_id)
+        //                     ->count();
+
+        // $qualifiedAchievement = DB::Table("comment_written_achievements")
+        //                             ->where("number_of_comments", $commentNumber)
+        //                             ->get();
+
         //check_qualified achievement
         //check_if_already_has_achievement
         //assignAchievement

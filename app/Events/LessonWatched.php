@@ -22,6 +22,6 @@ class LessonWatched
     public function __construct(Lesson $lesson, User $user)
     {
         $this->lesson = $lesson;
-        $this->user = $user;
+        $this->user   = $user;
     }
 }
