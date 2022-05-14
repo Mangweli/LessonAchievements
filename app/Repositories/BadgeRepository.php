@@ -1,14 +1,16 @@
 <?php
 
+namespace App\Repositories;
+
 use App\Interfaces\BadgeRepositoryInterface;
-use App\Models\Badge;
+use App\Models\Achievements\Badge;
 use App\Models\BadgeUserAchievement;
 
 class BadgeRepository implements BadgeRepositoryInterface
 {
-    public function getBadgeAchievement($achievementNumber)
+    public function getBadgeAchievement(int $achievementNumber)
     {
-       return Badge::where("number_of_achievements", $achievementNumber)->first();
+       return Badge::where("number_of_achievements", "<=" ,$achievementNumber)->orderBy('id', 'desc')->first();
     }
 
     public function userHasAchievement($user_id, $badge_id)

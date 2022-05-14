@@ -29,8 +29,8 @@ class UnlockCommentAchievement
      */
     public function handle(CommentWritten $event)
     {
-        try {
-            $user_id              = $event->Comment->user_id;
+      //  try {
+            $user_id              = $event->comment->user_id;
             $commentNumber        = $this->commentRepository->getUserCommentNumber($user_id);
             $qualifiedAchievement = $this->commentRepository->getCommentAchievement($commentNumber);
             $qualifiedAchievement = empty($qualifiedAchievement) ? [] : $qualifiedAchievement;
@@ -39,15 +39,15 @@ class UnlockCommentAchievement
                 $achievementReceivedCheck = $this->commentRepository->userHasAchievement($user_id, $qualifiedAchievement->id);
 
                 if($achievementReceivedCheck === 0) {
-                    $setAchievement = $this->commentRepository->setUserCommentAchievement($user_id, $event->Comment->id, $qualifiedAchievement->id);
+                    $setAchievement = $this->commentRepository->setUserCommentAchievement($user_id, $event->comment->id, $qualifiedAchievement->id);
                     if(!empty($setAchievement)) {
                          //achievement unlock event
                     }
                 }
             }
-        }
-        catch (\Throwable $th) {
-            Log::error($th);
-        }
+       // }
+        // catch (\Throwable $th) {
+        //     Log::error($th);
+        // }
     }
 }

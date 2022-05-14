@@ -30,8 +30,8 @@ class UnlockBadgeAchievement
 
     public function handle($event)
     {
-        try {
-            $user_id              = ($event->Comment) ? $event->Comment->user_id: $event->user->user_id;
+      //  try {
+            $user_id              = ($event->comment) ? $event->comment->user_id: $event->user->user_id;
             $achievementCount     = $this->commentRepository->getCommentAchievementReceived($user_id) + $this->lessonRepository->getLessonAchievementReceived($user_id);
 
             $qualifiedBadgeAchievement = $this->badgeRepository->getBadgeAchievement($achievementCount);
@@ -41,13 +41,13 @@ class UnlockBadgeAchievement
                 $achievementReceivedCheck = $this->badgeRepository->userHasAchievement($user_id, $qualifiedBadgeAchievement->id);
 
                 if($achievementReceivedCheck === 0) {
-                    $this->badgeRepository->setUserBadgeAchievement($user_id, $event->Comment->id, $qualifiedBadgeAchievement->id);
+                    $this->badgeRepository->setUserBadgeAchievement($user_id, $qualifiedBadgeAchievement->id);
                 }
             }
-        }
-        catch (\Throwable $th) {
-            Log::error($th);
-        }
+        // }
+        // catch (\Throwable $th) {
+        //     Log::error($th);
+        // }
 
     }
 }

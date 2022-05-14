@@ -1,10 +1,11 @@
 <?php
 
+namespace App\Repositories;
+
 use App\Interfaces\LessonRepositoryInterface;
-use App\Models\Comment;
 use App\Models\LessonUser;
-use App\Models\LessonWatchedAchievement;
-use App\Models\UserLessonWatchedAchievement;
+use App\Models\Achievements\LessonWatchedAchievement;
+use App\Models\Users\UserLessonWatchedAchievement;
 
 class LessonRepository implements LessonRepositoryInterface
 {

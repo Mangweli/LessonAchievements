@@ -17,7 +17,6 @@ class CreateCommentWrittenAchievementsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('number_of_comments');
-            $table->timestamps();
         });
 
         DB::Table('comment_written_achievements')

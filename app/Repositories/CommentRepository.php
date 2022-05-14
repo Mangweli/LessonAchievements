@@ -1,9 +1,11 @@
 <?php
 
+namespace App\Repositories;
+
 use App\Interfaces\CommentRepositoryInterface;
 use App\Models\Comment;
-use App\Models\CommentWrittenAchievement;
-use App\Models\UserCommentAchievement;
+use App\Models\Achievements\CommentWrittenAchievement;
+use App\Models\Users\UserCommentAchievement;
 
 class CommentRepository implements CommentRepositoryInterface
 {

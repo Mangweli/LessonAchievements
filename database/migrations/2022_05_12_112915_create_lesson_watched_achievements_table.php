@@ -17,7 +17,6 @@ class CreateLessonWatchedAchievementsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('number_of_lessons');
-            $table->timestamps();
         });
 
         DB::Table('lesson_watched_achievements')

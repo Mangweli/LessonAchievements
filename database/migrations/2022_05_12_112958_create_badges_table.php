@@ -17,7 +17,6 @@ class CreateBadgesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('number_of_achievements');
-            $table->timestamps();
         });
 
         DB::Table('badges')
