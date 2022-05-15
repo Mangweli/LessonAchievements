@@ -31,6 +31,7 @@ class LessonRepository implements LessonRepositoryInterface
 
     public function setLessonWatchStatus($user_id, $lesson_id, $watch_status)
     {
+       // dd(LessonUser::create(["user_id" => $user_id, "lesson_id" => $lesson_id, "watched" => $watch_status]));
         return LessonUser::create(["user_id" => $user_id, "lesson_id" => $lesson_id, "watched" => $watch_status]);
     }
 

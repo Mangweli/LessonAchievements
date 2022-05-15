@@ -17,6 +17,7 @@ class CreateUserLessonWatchedAchievementsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('lesson_achievement_id')->constrained('lesson_watched_achievements');
+            $table->foreignId('lesson_id')->constrained();
             $table->timestamps();
         });
     }

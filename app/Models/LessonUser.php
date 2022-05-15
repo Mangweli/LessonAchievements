@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class LessonUser extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'lesson_id',
+        'watched'
+    ];
+
+    public $timestamps = false;
 }

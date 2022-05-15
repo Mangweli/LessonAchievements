@@ -29,9 +29,10 @@ class UnlockLessonWatchedAchievement
      */
     public function handle(LessonWatched $event)
     {
-        try {
+       // try {
             $lesson = $event->lesson;
             $user   = $event->user;
+
             $this->lessonRepository->setLessonWatchStatus($user->id, $lesson->id, true);
 
             $LessonNumber = $this->lessonRepository->getUserLessonNumber($user->id);
@@ -39,18 +40,18 @@ class UnlockLessonWatchedAchievement
             $qualifiedAchievement = empty($qualifiedAchievement) ? [] : $qualifiedAchievement;
 
             if(!empty($qualifiedAchievement)) {
-                $achievementReceivedCheck = $this->commentRepository->userHasAchievement($user_id, $qualifiedAchievement->id);
+                $achievementReceivedCheck = $this->lessonRepository->userHasAchievement($user->id, $qualifiedAchievement->id);
 
                 if($achievementReceivedCheck === 0) {
-                    $setAchievement = $this->lessonRepository->setUserLessonAchievement($user_id, $event->Comment->id, $qualifiedAchievement->id);
+                    $setAchievement = $this->lessonRepository->setUserLessonAchievement($user->id, $lesson->id, $qualifiedAchievement->id);
                     if(!empty($setAchievement)) {
                         //achievement unlock event
                     }
                 }
             }
-        }
-        catch (\Throwable $th) {
-            Log::error($th);
-        }
+        // }
+        // catch (\Throwable $th) {
+        //     Log::error($th);
+        // }
     }
 }

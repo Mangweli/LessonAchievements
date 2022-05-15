@@ -31,7 +31,7 @@ class UnlockBadgeAchievement
     public function handle($event)
     {
       //  try {
-            $user_id              = ($event->comment) ? $event->comment->user_id: $event->user->user_id;
+            $user_id              = (property_exists($event, 'comment')) ? $event->comment->user_id : $event->user->id;
             $achievementCount     = $this->commentRepository->getCommentAchievementReceived($user_id) + $this->lessonRepository->getLessonAchievementReceived($user_id);
 
             $qualifiedBadgeAchievement = $this->badgeRepository->getBadgeAchievement($achievementCount);
