@@ -13,10 +13,8 @@ class UserAchievementTest extends TestCase
      *
      * @return void
      */
-    public function test_get_user_achievement_status()
+    public function get_user_achievement_status()
     {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
     }
 }

@@ -79,13 +79,5 @@ class AchievementsController extends Controller
                 'error'   => $th
             ]);
         }
-
-        // dd(Comment::create(['body' => 'Test', 'user_id' => $user->id]));
-        // $comment = Comment::where('id', 1)->first();
-        //  $lesson = Lesson::where('id', 2)->first();
-
-        // // event(new CommentWritten(Comment::create(['body' => 'Test 3', 'user_id' => $user->id])));
-        //  event(new LessonWatched($lesson, $user));
-        // event(new CommentWritten($comment));
     }
 }
