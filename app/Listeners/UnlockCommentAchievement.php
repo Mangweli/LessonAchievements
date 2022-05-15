@@ -29,7 +29,7 @@ class UnlockCommentAchievement
      */
     public function handle(CommentWritten $event)
     {
-      //  try {
+        try {
             $user_id              = $event->comment->user_id;
             $commentNumber        = $this->commentRepository->getUserCommentNumber($user_id);
             $qualifiedAchievement = $this->commentRepository->getCommentAchievement($commentNumber);
@@ -45,9 +45,9 @@ class UnlockCommentAchievement
                     }
                 }
             }
-       // }
-        // catch (\Throwable $th) {
-        //     Log::error($th);
-        // }
+        }
+        catch (\Throwable $th) {
+            Log::error($th);
+        }
     }
 }

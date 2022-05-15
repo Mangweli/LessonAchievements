@@ -9,25 +9,19 @@ use App\Models\Users\UserCommentAchievement;
 
 class CommentRepository implements CommentRepositoryInterface
 {
-    // public function getUserComments($user_id, $pagination = 10)
-    // {
-    //     return Comment::where('user_id')->paginate($pagination);
-    // }
+    public function getUserNextCommentAchievement($user_id)
+    {
+        $currentAchievement = UserCommentAchievement::where("user_id", $user_id)
+                                                    ->orderBy("comment_written_achievement_id","desc")
+                                                    ->first();
 
-    // public function getUserCommentCurrentAchievement($user_id)
-    // {
-    //     return UserCommentAchievement::where("user_id", $user_id)->last();
-    // }
+        if(empty($currentAchievement)) {
+            return CommentWrittenAchievement::first();
+        }
 
-    // public function getUserNextCommentAchievement($user_id)
-    // {
-    //     return CommentWrittenAchievement::where("id", ">", UserCommentAchievement::where("user_id", $user_id)
-    //                                                                              ->take(1)
-    //                                                                              ->orderBy("created_at","desc")
-    //                                                                              ->pluck("comment_written_achievement_id")[0]
-    //                                     )
-    //                                     ->first();
-    // }
+        return CommentWrittenAchievement::where("number_of_comments", ">", $currentAchievement->comment_written_achievement_id)
+                                        ->first();
+    }
 
     public function getUserCommentNumber($user_id)
     {
@@ -39,8 +33,17 @@ class CommentRepository implements CommentRepositoryInterface
        return CommentWrittenAchievement::where("number_of_comments", $commentNumber)->first();
     }
 
-    public function getCommentAchievementReceived(int $user_id) {
+    public function getCommentAchievementReceived($user_id)
+    {
         return UserCommentAchievement::where("user_id", $user_id)->count();
+    }
+
+    public function getAllUserCommentAchievements($user_id)
+    {
+        return UserCommentAchievement::where("user_id", $user_id)
+                                        ->join("comment_written_achievements","comment_written_achievements.id", "=", "user_comment_achievements.comment_written_achievement_id")
+                                        ->pluck("name")
+                                        ->toArray();
     }
 
     public function userHasAchievement($user_id, $achievement_id)

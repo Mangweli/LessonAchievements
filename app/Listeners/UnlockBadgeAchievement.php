@@ -30,7 +30,7 @@ class UnlockBadgeAchievement
 
     public function handle($event)
     {
-      //  try {
+        try {
             $user_id              = (property_exists($event, 'comment')) ? $event->comment->user_id : $event->user->id;
             $achievementCount     = $this->commentRepository->getCommentAchievementReceived($user_id) + $this->lessonRepository->getLessonAchievementReceived($user_id);
 
@@ -44,10 +44,10 @@ class UnlockBadgeAchievement
                     $this->badgeRepository->setUserBadgeAchievement($user_id, $qualifiedBadgeAchievement->id);
                 }
             }
-        // }
-        // catch (\Throwable $th) {
-        //     Log::error($th);
-        // }
+        }
+        catch (\Throwable $th) {
+            Log::error($th);
+        }
 
     }
 }

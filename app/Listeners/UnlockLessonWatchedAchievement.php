@@ -29,7 +29,7 @@ class UnlockLessonWatchedAchievement
      */
     public function handle(LessonWatched $event)
     {
-       // try {
+        try {
             $lesson = $event->lesson;
             $user   = $event->user;
 
@@ -49,9 +49,9 @@ class UnlockLessonWatchedAchievement
                     }
                 }
             }
-        // }
-        // catch (\Throwable $th) {
-        //     Log::error($th);
-        // }
+        }
+        catch (\Throwable $th) {
+            Log::error($th);
+        }
     }
 }
