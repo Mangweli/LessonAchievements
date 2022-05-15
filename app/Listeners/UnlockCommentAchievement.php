@@ -2,8 +2,10 @@
 
 namespace App\Listeners;
 
+use App\Events\AchievementUnlocked;
 use App\Events\CommentWritten;
 use App\Interfaces\CommentRepositoryInterface;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
@@ -41,7 +43,7 @@ class UnlockCommentAchievement
                 if($achievementReceivedCheck === 0) {
                     $setAchievement = $this->commentRepository->setUserCommentAchievement($user_id, $event->comment->id, $qualifiedAchievement->id);
                     if(!empty($setAchievement)) {
-                         //achievement unlock event
+                        event(new AchievementUnlocked($qualifiedAchievement->name, User::where('id', $user_id)->first()));
                     }
                 }
             }

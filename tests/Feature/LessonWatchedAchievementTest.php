@@ -38,7 +38,6 @@ class LessonWatchedAchievementTest extends TestCase
 
     public function test_get_correct_user_lesson_number()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->create();
 
         $this->assertDatabaseMissing('lesson_user', ['user_id' => $user->user_id, 'lesson_id' => '1']);

@@ -20,9 +20,14 @@ class AchievementsController extends Controller
     private CommentRepositoryInterface $commentRepository;
     private LessonRepositoryInterface $lessonRepository;
     private BadgeRepositoryInterface $badgeRepository;
+
+
     /**
-     * Create the event listener.
+     * __construct
      *
+     * @param  mixed $commentRepository
+     * @param  mixed $lessonRepository
+     * @param  mixed $badgeRepository
      * @return void
      */
     public function __construct(CommentRepositoryInterface $commentRepository, LessonRepositoryInterface $lessonRepository,  BadgeRepositoryInterface $badgeRepository)
@@ -32,29 +37,30 @@ class AchievementsController extends Controller
         $this->badgeRepository   = $badgeRepository;
     }
 
+    /**
+     * index
+     *
+     * @param  mixed $user
+     * @return void
+     */
+
     public function index(User $user)
     {
         try {
-            $commentAchievement = $this->commentRepository->getUserNextCommentAchievement($user->id);
-            $commentAchievement = empty($commentAchievement) ? 'Unavailable': $commentAchievement->name;
-
-            $lessonAchievement = $this->lessonRepository->getUserNextLessonAchievement($user->id);
-            $lessonAchievement = empty($lessonAchievement) ? 'Unavailable': $lessonAchievement->name;
-
-            $badgeAchievement = $this->badgeRepository->getUserNextBadgeAchievement($user->id);
-            $nextBadgeTarget  = $badgeAchievement->number_of_achievements;
-            $badgeAchievement = empty($badgeAchievement) ? 'Unavailable': $badgeAchievement->name;
-
-            $totalachievements = $this->commentRepository->getCommentAchievementReceived($user->id) + $this->lessonRepository->getLessonAchievementReceived($user->id);
-
-            $currentBadge = $this->badgeRepository->getUserCurrentBadge($user->id);
-            $currentBadge = empty($currentBadge) ? 'Unavailable' :  $currentBadge->name;
-
+            $commentAchievement     = $this->commentRepository->getUserNextCommentAchievement($user->id);
+            $commentAchievement     = empty($commentAchievement) ? 'Unavailable'    : $commentAchievement->name;
+            $lessonAchievement      = $this->lessonRepository->getUserNextLessonAchievement($user->id);
+            $lessonAchievement      = empty($lessonAchievement) ? 'Unavailable'     : $lessonAchievement->name;
+            $badgeAchievement       = $this->badgeRepository->getUserNextBadgeAchievement($user->id);
+            $nextBadgeTarget        = $badgeAchievement->number_of_achievements;
+            $badgeAchievement       = empty($badgeAchievement) ? 'Unavailable'      : $badgeAchievement->name;
+            $totalachievements      = $this->commentRepository->getCommentAchievementReceived($user->id) + $this->lessonRepository->getLessonAchievementReceived($user->id);
+            $currentBadge           = $this->badgeRepository->getUserCurrentBadge($user->id);
+            $currentBadge           = empty($currentBadge) ? 'Unavailable'          : $currentBadge->name;
             $allCommentAchievements = $this->commentRepository->getAllUserCommentAchievements($user->id);
-            $allCommentAchievements = empty($allCommentAchievements) ? 'Unavailable' : $allCommentAchievements;
-
-            $allLessonAchievements = $this->lessonRepository->getAllUserLessonAchievements($user->id);
-            $allLessonAchievements =  empty($allLessonAchievements) ? 'Unavailable' : $allLessonAchievements;
+            $allCommentAchievements = empty($allCommentAchievements) ? 'Unavailable': $allCommentAchievements;
+            $allLessonAchievements  = $this->lessonRepository->getAllUseLessonAchievements($user->id);
+            $allLessonAchievements  = empty($allLessonAchievements) ? 'Unavailable' : $allLessonAchievements;
 
             return response()->json([
                 'unlocked_achievements' => [

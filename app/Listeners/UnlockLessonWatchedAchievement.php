@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\AchievementUnlocked;
 use App\Events\LessonWatched;
 use App\Interfaces\LessonRepositoryInterface;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,7 +36,7 @@ class UnlockLessonWatchedAchievement
 
             $this->lessonRepository->setLessonWatchStatus($user->id, $lesson->id, true);
 
-            $LessonNumber = $this->lessonRepository->getUserLessonNumber($user->id);
+            $LessonNumber         = $this->lessonRepository->getUserLessonNumber($user->id);
             $qualifiedAchievement = $this->lessonRepository->getLessonAchievement($LessonNumber);
             $qualifiedAchievement = empty($qualifiedAchievement) ? [] : $qualifiedAchievement;
 
@@ -45,7 +46,7 @@ class UnlockLessonWatchedAchievement
                 if($achievementReceivedCheck === 0) {
                     $setAchievement = $this->lessonRepository->setUserLessonAchievement($user->id, $lesson->id, $qualifiedAchievement->id);
                     if(!empty($setAchievement)) {
-                        //achievement unlock event
+                        event(new AchievementUnlocked($qualifiedAchievement->name, $user));
                     }
                 }
             }

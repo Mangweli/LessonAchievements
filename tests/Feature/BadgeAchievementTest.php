@@ -48,18 +48,6 @@ class BadgeAchievementTest extends TestCase
         );
     }
 
-
-
-
-    //     if(!empty($qualifiedBadgeAchievement)) {
-    //         $achievementReceivedCheck = $this->badgeRepository->userHasAchievement($user_id, $qualifiedBadgeAchievement->id);
-
-    //         if($achievementReceivedCheck === 0) {
-    //             $this->badgeRepository->setUserBadgeAchievement($user_id, $qualifiedBadgeAchievement->id);
-    //         }
-    //     }
-    // }
-
     public function test_user_gains_correct_qualified_badge_achievement()
     {
         $badgeNumbers = [0, 4, 8, 10];

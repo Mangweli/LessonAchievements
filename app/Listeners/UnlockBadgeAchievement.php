@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\LessonWatched;
+use App\Events\BadgeUnlocked;
 use App\Interfaces\BadgeRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\LessonRepositoryInterface;
@@ -41,7 +41,10 @@ class UnlockBadgeAchievement
                 $achievementReceivedCheck = $this->badgeRepository->userHasAchievement($user_id, $qualifiedBadgeAchievement->id);
 
                 if($achievementReceivedCheck === 0) {
-                    $this->badgeRepository->setUserBadgeAchievement($user_id, $qualifiedBadgeAchievement->id);
+                    $setAchievement = $this->badgeRepository->setUserBadgeAchievement($user_id, $qualifiedBadgeAchievement->id);
+                    if(!empty($setAchievement)) {
+                        event(new BadgeUnlocked($qualifiedBadgeAchievement->name, User::where('id', $user_id)->first()));
+                    }
                 }
             }
         }

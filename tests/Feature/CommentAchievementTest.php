@@ -49,7 +49,6 @@ class CommentAchievementTest extends TestCase
 
     public function test_get_correct_user_comments_number()
     {
-        $this->withoutExceptionHandling();
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
 
